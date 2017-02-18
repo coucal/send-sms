@@ -1,0 +1,21 @@
+<h1>Recipients</h1>
+
+<form>
+  <label>ID:</label>
+    {{input value=newRecipientId}}
+  <label>NAME:</label>
+    {{input value=newRecipientName}}
+  <label>FIRST NAME:</label>
+      {{input value=newRecipientFirstName}}
+  <label>PHONE:</label>
+      {{input value=newRecipientPhone }}
+  <button type="submit" {{action 'addNewRecipient' newRecipientId newRecipientName newRecipientFirstName newRecipientPhone}}>Add</button>
+</form>
+
+<ul>
+  {{#each model as |recipient|}}
+    <li>ID: {{recipient.id}}, NAME: {{recipient.name}}, FIRST NAME: {{recipient.firstName}}, PHONE: {{recipient.phone}}
+    <button {{action 'deleteRecipient' recipient}}>Del</button>
+    </li>
+  {{/each}}
+</ul>

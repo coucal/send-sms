@@ -6,7 +6,12 @@ const Router = Ember.Router.extend({
   rootURL: config.rootURL
 });
 
+
 Router.map(function() {
+
+  this.route('campaigns', { path: '/' });
+  this.route('admin');
+  this.route('recipients');
 });
 
 export default Router;
