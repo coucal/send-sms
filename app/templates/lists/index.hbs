@@ -1,0 +1,52 @@
+{{#if responseMessage}}
+  <div class="alert alert-success">{{responseMessage}}</div>
+{{/if}}
+
+<div class="well well-sm">
+<form class="form-inline" {{action 'addNewList ' newListName  on='submit'}}>
+  <div class="form-group">
+  <label for="new-name">New list :</label>
+    {{input type="text" class="form-control" id="new-name" placeholder="Name" value=newListName}}
+  </div>
+  <button class="btn btn-xs btn-primary" type="submit" {{action 'addNewList' newListName}}>Add</button>
+</form>
+</div>
+
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Created on</th>
+    <th>Recipients</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each model as |list|}}
+    <tr>
+      {{#if list.isEditing}}
+      <td > {{input value=list.name}}</td>
+            <td>{{shortDate list.created}} </td>
+            <td>
+              {{list.recipients.length}}
+            </td>
+            <td>
+        <button class="btn btn-xs btn-success" {{action 'updateList' list}}>Save</button>&nbsp;
+        <button class="btn btn-xs btn-info" {{action 'cancelUpdate' list}}>Cancel</button>
+      </td>
+      {{else}}
+          <td > {{list.name}}
+    </td>
+       <td> {{shortDate list.created}}</td>
+       <td>
+         {{list.recipients.length}}
+       </td>
+<td>
+    <button class="btn btn-xs btn-danger" {{action 'deleteList' list}}>Del</button>&nbsp;
+    <button class="btn btn-xs btn-secondary" {{action 'editList' list}}>Edit</button>
+  </td>
+          {{/if}}
+  </tr>
+  {{/each}}
+</tbody>
+</table>

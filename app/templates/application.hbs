@@ -1,4 +1,29 @@
-{{!-- app/templates/application.hbs --}}
-{{link-to 'Campaigns' 'campaigns'}} | {{link-to 'Recipients' 'recipients'}} 
-<hr>
-{{outlet}}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"
+              aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      {{link-to 'Send-SMS' 'campaigns' class="navbar-brand"}}
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+
+      <ul class="nav navbar-nav">
+
+        {{#nav-link-to 'recipients'}}Recipients{{/nav-link-to}}
+        {{#nav-link-to 'lists'}}Lists{{/nav-link-to}}
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  {{outlet}}
+</div>

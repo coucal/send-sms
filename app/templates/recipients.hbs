@@ -1,23 +1,54 @@
 <h1>Recipients</h1>
 
+
 {{#if responseMessage}}
   <div class="alert alert-success">{{responseMessage}}</div>
 {{/if}}
 
-<form>
-  <label>NAME:</label>
-    {{input value=newRecipientName}}
-  <label>FIRST NAME:</label>
-      {{input value=newRecipientFirstName}}
-  <label>PHONE:</label>
-      {{input value=newRecipientPhone }}
-  <button type="submit" {{action 'addNewRecipient' newRecipientId newRecipientName newRecipientFirstName newRecipientPhone}}>Add</button>
-</form>
+<div class="well well-sm">
+<form class="form-inline" {{action 'addNewRecipient ' newRecipientName newRecipientFirstName newRecipientPhone on='submit'}}>
+  <div class="form-group">
+  <label for="new-name">New recipient :</label>
+    {{input type="text" class="form-control" id="new-name" placeholder="Name" value=newRecipientName}}
+    {{input type="text" class="form-control" id="new-first-name" placeholder="first name" value=newRecipientFirstName}}
+    {{input type="text" class="form-control" id="new-phone" placeholder=" phone" value=newRecipientPhone}}
 
-<ul>
+  </div>
+  <button class="btn btn-xs btn-primary" type="submit" {{action 'addNewRecipient' newRecipientName newRecipientFirstName newRecipientPhone}}>Add</button>
+</form>
+</div>
+
+
+<table class="table table-striped">
+  <caption>List of recipients</caption>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>First Name</th>
+    <th>Phone</th>
+  </tr>
+  </thead>
+  <tbody>
   {{#each model as |recipient|}}
-    <li>ID: {{recipient.id}}, NAME: {{recipient.name}}, FIRST NAME: {{recipient.firstName}}, PHONE: {{recipient.phone}}
-    <button {{action 'deleteRecipient' recipient}}>Del</button>
-    </li>
+    <tr>
+      {{#if recipient.isEditing}}
+      <td > {{input value=recipient.name}}</td>
+         <td>
+        {{input value=recipient.firstName}}</td>
+         <td>{{input value=recipient.phone}} </td>
+            <td>
+        <button class="btn btn-xs btn-success" {{action 'updateRecipient' recipient}}>Save</button>&nbsp;
+        <button class="btn btn-xs btn-info" {{action 'cancelUpdate' recipient}}>Cancel</button>
+      </td>
+      {{else}}
+          <td > {{recipient.name}}
+    </td>
+       <td> {{recipient.firstName}}</td>
+        <td>{{recipient.phone}} </td>
+    <button class="btn btn-xs btn-danger" {{action 'deleteRecipient' recipient}}>Del</button>&nbsp;
+    <button class="btn btn-xs btn-secondary" {{action 'editRecipient' recipient}}>Edit</button>
+          {{/if}}
+  </tr>
   {{/each}}
-</ul>
+</tbody>
+</table>

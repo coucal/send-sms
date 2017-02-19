@@ -3,28 +3,29 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   model() {
-/*    return [
-      { id: 1,
-        name: "Couchot",
-        firstName : "Alain",
-        phone : "+33687504497"
-      },
-      { id: 2,
-        name: "Griesinger",
-        firstName : "Pascale",
-        phone : "+33662177656"
-      }
-    ]*/
     return this.store.findAll('recipient');
   },
 
   actions: {
 
-    addNewRecipient(id, name, firstName, phone) {
-      this.store.createRecord('recipient', { id, name, firstName, phone }).save().then((response) => {
-        this.set('responseMessage', `Thank you! We saved your email address with the following id: ${response.get('id')}`);
-        this.set('name', '');
-      };
+    addNewRecipient(name, firstName, phone) {
+      this.store.createRecord('recipient', { name, firstName, phone }).save().then((response) => {
+        this.controller.set('responseMessage', `Recipient saved with the following id: ${response.get('id')}`);
+        this.controller.set('newRecipientName', '');
+        this.controller.set('newRecipientFirstName', '');
+        this.controller.set('newRecipientPhone', '');
+      });
+    },
+    editRecipient(recipient) {
+      recipient.set('isEditing', true);
+    },
+    cancelUpdate(recipient) {
+      recipient.set('isEditing', false);
+    },
+    updateRecipient(recipient) {
+      recipient.save().then(
+        recipient => recipient.set('isEditing', false)
+      );
     },
     deleteRecipient(recipient) {
       recipient.destroyRecord();

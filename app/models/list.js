@@ -2,9 +2,8 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   name: DS.attr('string'),
-  firstName: DS.attr('string'),
-  phone: DS.attr('string'),
-  list:DS.belongsTo('list'),
+  created: DS.attr('date'),
+  recipients: DS.hasMany('recipient'),
 
   isEditing: false
 });
