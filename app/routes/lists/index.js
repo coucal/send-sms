@@ -27,7 +27,10 @@ export default Ember.Route.extend({
     },
     deleteList(list) {
       list.destroyRecord();
+    },
+    redirect(transition, id){
+      console.log("redirect",id);
+      this.transitionTo(transition,this.store.findRecord('list',id));
     }
-
   }
 });

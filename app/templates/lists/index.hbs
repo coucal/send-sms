@@ -19,6 +19,7 @@
     <th>Name</th>
     <th>Created on</th>
     <th>Recipients</th>
+    <th>&nbsp;</th>
   </tr>
   </thead>
   <tbody>
@@ -28,18 +29,20 @@
       <td > {{input value=list.name}}</td>
             <td>{{shortDate list.created}} </td>
             <td>
-              {{list.recipients.length}}
+              {{list.size}}
             </td>
             <td>
         <button class="btn btn-xs btn-success" {{action 'updateList' list}}>Save</button>&nbsp;
         <button class="btn btn-xs btn-info" {{action 'cancelUpdate' list}}>Cancel</button>
       </td>
       {{else}}
-          <td > {{list.name}}
+          <td >
+            {{#link-to 'lists.show' list.id class='btn btn-xs btn-primary'}}select{{/link-to}}&nbsp;
+            {{list.name}}
     </td>
        <td> {{shortDate list.created}}</td>
        <td>
-         {{list.recipients.length}}
+         {{list.size}}
        </td>
 <td>
     <button class="btn btn-xs btn-danger" {{action 'deleteList' list}}>Del</button>&nbsp;

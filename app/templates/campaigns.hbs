@@ -1,1 +1,9 @@
 <h1>Campaigns</h1>
+
+<div class="well">
+  <ul class="nav nav-pills">
+    {{#link-to 'campaigns.index' tagName="li"}}<a href="">List all</a>{{/link-to}}
+    {{#link-to 'campaigns.new' tagName="li"}}<a href="">Add new</a>{{/link-to}}
+  </ul>
+</div>
+{{outlet}}
