@@ -1,8 +1,10 @@
 <h1>Recipients</h1>
 
+{{#if responseMessage}}
+  <div class="alert alert-success">{{responseMessage}}</div>
+{{/if}}
+
 <form>
-  <label>ID:</label>
-    {{input value=newRecipientId}}
   <label>NAME:</label>
     {{input value=newRecipientName}}
   <label>FIRST NAME:</label>

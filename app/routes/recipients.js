@@ -21,7 +21,10 @@ export default Ember.Route.extend({
   actions: {
 
     addNewRecipient(id, name, firstName, phone) {
-      this.store.createRecord('recipient', { id, name, firstName, phone }).save();
+      this.store.createRecord('recipient', { id, name, firstName, phone }).save().then((response) => {
+        this.set('responseMessage', `Thank you! We saved your email address with the following id: ${response.get('id')}`);
+        this.set('name', '');
+      };
     },
     deleteRecipient(recipient) {
       recipient.destroyRecord();
