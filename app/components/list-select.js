@@ -4,13 +4,12 @@ export default Ember.Component.extend({
 
   tagName: 'select',
   classNames: ['form-control'],
-  authors: [],
-  book: null,
+  lists: [],
+  recipient: null,
 
   change(event) {
-    const selectedAuthorId = event.target.value;
-    const selectedAuthor = this.get('authors').find((record) => record.id === selectedAuthorId);
-
-    this.sendAction('action', selectedAuthor, this.get('book'));
+    const selectedListId = event.target.value;
+    const selectedList = this.get('lists').find((record) => record.id === selectedListId);
+    this.sendAction('action', selectedList, this.get('recipient'));
   }
 });

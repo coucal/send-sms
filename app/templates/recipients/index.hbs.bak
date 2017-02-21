@@ -1,0 +1,97 @@
+<h1>Recipients</h1>
+
+<div class="row">
+  <div class="col-md-1">
+    {{#link-to (query-params limit='all' letter='') class='btn btn-default btn-lg btn-block'}}All{{/link-to}}
+  </div>
+  <div class="col-md-1">
+    {{#link-to (query-params limit='abc') class='btn btn-default btn-lg btn-block'}}Abc{{/link-to}}
+  </div>
+
+  <div class="col-md-10">
+    {{#if limitAll}}
+      <div class="form-group">
+        {{input value=filter class="form-control input-lg" placeholder="Filter by recipient name"}}
+      </div>
+    {{else}}
+        <div class="form-group">
+          {{abc-buttons}}
+        </div>
+    {{/if}}
+  </div>
+</div>
+
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th class="vtop wider">
+      Name
+      <br><small class="small not-bold">(Click on the name for editing)</small>
+    </th>
+        <th class="vtop">First name</th>
+    <th>
+      Phone
+      <br><small class="small not-bold">(Click on the phone for editing)</small>
+    </th>
+
+    <th class="vtop">
+      List
+      <br><small class="small not-bold">(Click on the name for editing)</small>    </th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each filteredList as |recipient|}}
+    <tr>
+
+      <td>
+        {{#if recipient.isNameEditing}}
+
+          {{name-select
+            recipient=recipient
+            names=names
+            default=recipient.name
+            action='saveName'}}
+
+          <button class="btn btn-danger" {{action 'cancelNameEdit' recipient}}>Cancel</button>
+
+        {{else}}
+          <span {{action 'editName' recipient}}>{{recipient.name}}</span>
+        {{/if}}
+      </td>
+      <td>{{recipient.firstName}}</td>
+      <td>
+        {{#if recipient.isEditing}}
+          <form {{action 'saveRecipient' recipient on='submit'}} class="form-inline">
+            <div class="input-group">
+              {{input value=recipient.phone class='form-control'}}
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-success" disabled={{recipient.isNotValid}}>Save</button>
+                <button class="btn btn-danger" {{action 'cancelRecipientEdit' recipient}}>Cancel</button>
+              </div>
+            </div>
+          </form>
+        {{else}}
+          <span {{action 'editRecipient' recipient}}>{{recipient.phone}}</span>
+        {{/if}}
+      </td>
+
+
+<td>
+        {{#if recipient.isListEditing}}
+
+          {{list-select
+            recipient=recipient
+            lists=lists
+            default=recipient.list
+            action='saveList'}}
+
+          <button class="btn btn-danger" {{action 'cancelListEdit' recipient}}>Cancel</button>
+
+        {{else}}
+          <span {{action 'editList' recipient}}>{{recipient.list.name}}</span>
+        {{/if}}
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

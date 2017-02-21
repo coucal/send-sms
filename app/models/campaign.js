@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.Model.extend({
   name: DS.attr('string'),
@@ -7,6 +8,7 @@ export default DS.Model.extend({
   list:DS.attr('string'),
   message: DS.attr('string'),
 
+  isValid: Ember.computed.notEmpty('name'),
 
   isEditing: false
 });

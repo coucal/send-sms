@@ -1,0 +1,71 @@
+<h1>Recipients of {{list.name}} ({{recipients.length}})</h1>
+
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th class="vtop wider">
+      Name
+      <br><small class="small not-bold">(Click on the name for editing)</small>
+    </th>
+        <th class="vtop">First name
+        <br><small class="small not-bold">(Click on the name for editing)</small>
+    </th>
+    <th>
+      Phone
+      <br><small class="small not-bold">(Click on the phone for editing)</small>
+    </th>
+
+  </tr>
+  </thead>
+  <tbody>
+  {{#each recipients as |recipient|}}
+    <tr>
+      <td>
+        {{#if recipient.isEditing}}
+          <form {{action 'saveRecipient' recipient on='submit'}} class="form-inline">
+            <div class="input-group">
+              {{input value=recipient.name class='form-control'}}
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-success" disabled={{recipient.isNotValid}}>Save</button>
+                <button class="btn btn-danger" {{action 'cancelRecipientEdit' recipient}}>Cancel</button>
+              </div>
+            </div>
+          </form>
+        {{else}}
+          <span {{action 'editRecipient' recipient}}>{{recipient.name}}</span>
+        {{/if}}
+      </td>
+      <td>
+        {{#if recipient.isEditing}}
+          <form {{action 'saveRecipient' recipient on='submit'}} class="form-inline">
+            <div class="input-group">
+              {{input value=recipient.firstName class='form-control'}}
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-success" disabled={{recipient.isNotValid}}>Save</button>
+                <button class="btn btn-danger" {{action 'cancelRecipientEdit' recipient}}>Cancel</button>
+              </div>
+            </div>
+          </form>
+        {{else}}
+          <span {{action 'editRecipient' recipient}}>{{recipient.firstName}}</span>
+        {{/if}}
+      </td>
+      <td>
+        {{#if recipient.isEditing}}
+          <form {{action 'saveRecipient' recipient on='submit'}} class="form-inline">
+            <div class="input-group">
+              {{input value=recipient.phone class='form-control'}}
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-success" disabled={{recipient.isNotValid}}>Save</button>
+                <button class="btn btn-danger" {{action 'cancelRecipientEdit' recipient}}>Cancel</button>
+              </div>
+            </div>
+          </form>
+        {{else}}
+          <span {{action 'editRecipient' recipient}}>{{recipient.phone}}</span>
+        {{/if}}
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

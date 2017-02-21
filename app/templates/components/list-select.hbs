@@ -1,0 +1,5 @@
+{{#each lists as |list|}}
+  <option value={{list.id}} selected={{is-equal list.id default.id}}>
+    {{list.name}}
+  </option>
+{{/each}}

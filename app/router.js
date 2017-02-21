@@ -8,13 +8,18 @@ const Router = Ember.Router.extend({
 
 
 Router.map(function() {
-  this.route('recipients', { path: '/' });
+  this.route('recipients', function() {
+    this.route('bylist',{ path: '/bylist/:list_id' });
+    this.route('edit', { path: '/:recipient_id/edit' });
+    this.route('new');
+  });
   this.route('admin');
   this.route('campaigns',function() {
     this.route('new');
   });
   this.route('lists', function() {
-    this.route('show', { path: 'show/:id' });
+    this.route('edit', { path: '/:list_id/edit' });
+    this.route('new');
   });
 });
 

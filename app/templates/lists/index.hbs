@@ -1,55 +1,25 @@
-{{#if responseMessage}}
-  <div class="alert alert-success">{{responseMessage}}</div>
-{{/if}}
-
-<div class="well well-sm">
-<form class="form-inline" {{action 'addNewList ' newListName  on='submit'}}>
-  <div class="form-group">
-  <label for="new-name">New list :</label>
-    {{input type="text" class="form-control" id="new-name" placeholder="Name" value=newListName}}
-  </div>
-  <button class="btn btn-xs btn-primary" type="submit" {{action 'addNewList' newListName}}>Add</button>
-</form>
-</div>
+<h2>Lists</h2>
 
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Created on</th>
-    <th>Recipients</th>
-    <th>&nbsp;</th>
-  </tr>
-  </thead>
-  <tbody>
+
+<div class="row">
   {{#each model as |list|}}
-    <tr>
-      {{#if list.isEditing}}
-      <td > {{input value=list.name}}</td>
-            <td>{{shortDate list.created}} </td>
-            <td>
-              {{list.size}}
-            </td>
-            <td>
-        <button class="btn btn-xs btn-success" {{action 'updateList' list}}>Save</button>&nbsp;
-        <button class="btn btn-xs btn-info" {{action 'cancelUpdate' list}}>Cancel</button>
-      </td>
-      {{else}}
-          <td >
-            {{#link-to 'lists.show' list.id class='btn btn-xs btn-primary'}}select{{/link-to}}&nbsp;
-            {{list.name}}
-    </td>
-       <td> {{shortDate list.created}}</td>
-       <td>
-         {{list.size}}
-       </td>
-<td>
-    <button class="btn btn-xs btn-danger" {{action 'deleteList' list}}>Del</button>&nbsp;
-    <button class="btn btn-xs btn-secondary" {{action 'editList' list}}>Edit</button>
-  </td>
-          {{/if}}
-  </tr>
+    <div class="col-md-4">
+      {{#recipient-item item=list badge=list.recipients.length}}
+        {{#link-to 'recipients.bylist' list.id class='btn btn-info btn-xs'}}Select{{/link-to}}
+        {{#link-to 'lists.edit' list.id class='btn btn-success btn-xs'}}Edit{{/link-to}}
+        <button class="btn btn-danger btn-xs" {{action 'deleteList' list}}>Delete</button>
+      {{/recipient-item}}
+    </div>
+  {{else}}
+    {{#if model.isUpdating}}
+      {{spinner-cube}}
+    {{else}}
+      <div class="col-md-12 text-center">
+        <div class="alert alert-info">
+          Sorry, no result.
+        </div>
+      </div>
+    {{/if}}
   {{/each}}
-</tbody>
-</table>
+</div>

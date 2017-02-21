@@ -1,0 +1,18 @@
+<h2>{{title}}</h2>
+
+<div class="row">
+    <div class="col-md-6">
+
+      {{recipient-item-form item=recipient buttonLabel=buttonLabel action='saveRecipient' lists=lists}}
+
+    </div>
+
+    <div class="col-md-4">
+
+      {{#recipient-item item=recipient}}
+        <br/>
+      {{/recipient-item}}
+
+    </div>
+
+</div>

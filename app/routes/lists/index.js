@@ -1,36 +1,34 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model() {
-    return this.store.findAll('list');
+
+  queryParams: {
+    limit: { refreshModel: true },
+    letter: { refreshModel: true }
+  },
+
+  model(params) {
+
+    if (params.limit === 'all') {
+      return this.store.findAll('list');
+    }
+
+    return this.store.query('list', {
+      orderBy: 'name',
+      startAt: params.letter,
+      endAt: params.letter+"\uf8ff"
+    });
   },
 
   actions: {
 
-    addNewList(name) {
-      const created=new Date();
-      this.store.createRecord('list', { name, created }).save().then((response) => {
-      this.controller.set('responseMessage', `List saved with the following id: ${response.get('id')}`);
-      this.controller.set('newListName', '');
-      });
-    },
-    editList(list) {
-      list.set('isEditing', true);
-    },
-    cancelUpdate(list) {
-      list.set('isEditing', false);
-    },
-    updateList(list) {
-      list.save().then(
-        list => list.set('isEditing', false)
-      );
-    },
     deleteList(list) {
-      list.destroyRecord();
-    },
-    redirect(transition, id){
-      console.log("redirect",id);
-      this.transitionTo(transition,this.store.findRecord('list',id));
+      let confirmation = confirm('Are you sure?');
+
+      if (confirmation) {
+        list.destroyRecord();
+      }
     }
   }
+
 });
